@@ -1,0 +1,46 @@
+/* * {
+  font-variant: small-caps;
+} */
+
+#login input {
+  background: lightblue;
+}
+
+#login {
+  animation: apare 0.3s;
+}
+
+@keyframes apare {
+  0% {
+    transform: scale(0.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+button,
+input {
+  transition: 0.3s;
+
+  /* height: 60px; */
+
+  padding: 10px;
+
+  border-radius: 20px;
+
+  outline: none;
+
+  box-shadow: 1px 1px 5px;
+
+  font-size: 15px;
+}
+
+button:hover {
+  background-color: lightgray;
+}
+
+a:hover  {
+  background-color: lightgray;
+}
