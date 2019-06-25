@@ -12,7 +12,7 @@ function Left(props) {
       <h4 className="ml-2 mt-2">Conversations</h4>
       {props.people.map(el => {
         return (
-          <div onClick={props.selectConv}>
+          <div onClick={props.selectConv} className="convo" style={{borderRadius:"15px"}}>
             <Container>
               <Row className="mt-2">
                 <Col id={el.id}>

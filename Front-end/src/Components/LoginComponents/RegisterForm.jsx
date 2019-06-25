@@ -19,13 +19,18 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div id="login">
+      <div id="login" style={{paddingTop:"70px"}}>
         <input placeholder="nume" onChange={this.updateName} />
-
-        <input type="password" placeholder="parola" onChange={this.updatePass} />
-
-        <input placeholder="email" onChange={this.updateEmail} />
-
+        <br />
+        <input
+          type="password"
+          placeholder="parola"
+          onChange={this.updatePass}
+          className="mt-2"
+        />
+        <br />
+        <input placeholder="email" onChange={this.updateEmail} className="mt-2"/>
+        <br />
         <button
           onClick={() =>
             this.props.register(
@@ -34,8 +39,9 @@ class RegisterForm extends React.Component {
               this.state.email
             )
           }
+          className="mt-2"
         >
-          Activeaza
+          Register
         </button>
       </div>
     );

@@ -5,7 +5,7 @@ class LoginForm extends React.Component {
     nume: "",
     parola: ""
   };
- 
+
   updateName = ev => {
     this.setState({ nume: ev.target.value });
   };
@@ -14,17 +14,23 @@ class LoginForm extends React.Component {
   };
   render() {
     return (
-      <div id="login">
-        <input onChange={this.updateName} placeholder="nume" />
-
-        <input type="password" onChange={this.updatePass} placeholder="parola" />
-
+      <div id="login" style={{ textAlign: "center", paddingTop:"70px" }}>
+        <input onChange={this.updateName} placeholder="nume" className="mb-2"/>
+        <br />
+        <input
+          type="password"
+          onChange={this.updatePass}
+          placeholder="parola"
+          className="mb-3"
+        />
+        <br />
         <button
           onClick={() =>
             this.props.activateLogin(this.state.nume, this.state.parola)
           }
+          style={{paddingRight:"140px"}}
         >
-          Activeaza
+          Login
         </button>
       </div>
     );

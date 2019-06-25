@@ -2,9 +2,9 @@
   font-variant: small-caps;
 } */
 
-#login input {
+/* #login input {
   background: lightblue;
-}
+} */
 
 #login {
   animation: apare 0.3s;
@@ -28,11 +28,12 @@ input {
 
   padding: 10px;
 
-  border-radius: 20px;
+  /* border-radius: 20px; */
+  border-radius: 10px;
 
   outline: none;
 
-  box-shadow: 1px 1px 5px;
+  /* box-shadow: 1px 1px 5px; */
 
   font-size: 15px;
 }
@@ -41,6 +42,8 @@ button:hover {
   background-color: lightgray;
 }
 
-a:hover  {
-  background-color: lightgray;
+.convo:hover,
+a:hover {
+  transition: 0.4s;
+  background-color: lightgray 
 }

@@ -23,7 +23,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{textAlign:"center"}}>
         <div>
           <h3>Welcome to Messenger</h3>
         </div>
@@ -34,7 +34,7 @@ class Login extends React.Component {
           <RegisterForm {...this.props} />
         )}
 
-        <button onClick={this.changeForm}>changeForm</button>
+        <button onClick={this.changeForm} style={{paddingRight:"94px"}} className="mt-1">changeForm</button>
       </div>
     );
   }
