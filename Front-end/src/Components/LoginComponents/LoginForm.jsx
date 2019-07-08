@@ -14,8 +14,12 @@ class LoginForm extends React.Component {
   };
   render() {
     return (
-      <div id="login" style={{ textAlign: "center", paddingTop:"70px" }}>
-        <input onChange={this.updateName} placeholder="nume" className="mb-2"/>
+      <div id="login" style={{ textAlign: "center", paddingTop: "70px" }} onKeyDown={ev => {
+        if (ev.key === "Enter") {
+          this.props.activateLogin(this.state.nume, this.state.parola)
+        }
+      }}>
+        <input onChange={this.updateName} placeholder="nume" className="mb-2" />
         <br />
         <input
           type="password"
@@ -28,7 +32,7 @@ class LoginForm extends React.Component {
           onClick={() =>
             this.props.activateLogin(this.state.nume, this.state.parola)
           }
-          style={{paddingRight:"140px"}}
+          style={{ paddingRight: "140px" }}
         >
           Login
         </button>

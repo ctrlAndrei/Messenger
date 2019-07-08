@@ -34,36 +34,38 @@ function NewMessage(props) {
         {friends.map(el => (
           <li className="mt-3">
             <div>
-            <img
-              style={{ borderRadius: "50%"}}
-              width="80px"
-              src={el.link_poza}
-            />
-            <span>
-              <input
-                className="ml-2 mr-2"
-                placeholder="type new message"
-                onChange={ev => {
-                  setMessage(ev.target.value);
-                }}
+              <img
+                style={{ borderRadius: "50%" }}
+                width="80px"
+                src={el.link_poza}
               />
-              <button
-                onClick={ev => {
-                  props.webSocket.send(
-                    JSON.stringify({
-                      token: props.token,
-                      id_prieten: el._id,
-                      continut: newMessage
-                    })
-                  );
-                  props.updateComponent();
-                  alert("message sent !");
-                  // props.setMode("messenger");
-                }}
-              >
-                send
+              <span>
+                <input
+                  className="ml-2 mr-2"
+                  placeholder="type new message"
+                  onChange={ev => {
+                    setMessage(ev.target.value);
+                  }}
+                />
+                <button
+                  onClick={ev => {
+                    if (newMessage != "") {
+                      props.webSocket.send(
+                        JSON.stringify({
+                          token: props.token,
+                          id_prieten: el._id,
+                          continut: newMessage
+                        })
+                      );
+                      props.updateComponent();
+                      alert("message sent !");
+                    }
+                    // props.setMode("messenger");
+                  }}
+                >
+                  send
               </button>
-            </span>
+              </span>
             </div>
             <span><b>{el.username}</b></span>
           </li>

@@ -9,12 +9,12 @@ import { useState } from "react";
 function Middle(props) {
   const [newMes, setNewMes] = useState("");
   let length = props.message.length > 9 ? 0 : 9 - props.message.length + 2; //15
-  const emoji = ["😁", "😂" ,"🤣", "😃", "😄", "😅" ,"😆", "😉", "😊", "😋", "😎", "😍" ,"😘" ,"😗", "😙" ,"😚", '☺️', "🙂" ,"🤗",
-    "🤩", "🤔", "🤨" ,"😐", "😑", "😶" ,"🙄", "😏", "😣", "😥", "😮", "🤐", "😯", "😪", "😫", "😴", "😌", "😛", "😜", "😝", "🤤",
-    "😒", "😓", "😔", "😕", "🙃", "🤑", "😲" ,"☹️", "🙁", "😖", "😞", "😟", "😤", "😢", "😭", "😦", "😧", "😨", "😩", "🤯", "😬",
-    "😰", "😱", "😳", "🤪", "😵", "😡", "😠", "🤬", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "😇", "🤠", "🤡" ,
-    "🤥", "🤫", "🤭", "🧐" ,"🤓", "😈" ,"👿", "👹", "👺", "💀", "👻", "👽", "🤖" ,"💩", "😺", "😸", "😹" ,"😻", "😼", "😽",
-    "🙀" ,"😿", "😾"]
+  const emoji = ["😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎", "😍", "😘", "😗", "😙", "😚", "🙂", "🤗",
+    "🤩", "🤔", "🤨", "😐", "😑", "😶", "🙄", "😏", "😣", "😥", "😮", "🤐", "😯", "😪", "😫", "😴", "😌", "😛", "😜", "😝", "🤤",
+    "😒", "😓", "😔", "😕", "🙃", "🤑", "😲", "☹️", "🙁", "😖", "😞", "😟", "😤", "😢", "😭", "😦", "😧", "😨", "😩", "🤯", "😬",
+    "😰", "😱", "😳", "🤪", "😵", "😡", "😠", "🤬", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "😇", "🤠", "🤡",
+    "🤥", "🤫", "🤭", "🧐", "🤓", "😈", "👿", "👹", "👺", "💀", "👻", "👽", "🤖", "💩", "😺", "😸", "😹", "😻", "😼", "😽",
+    "🙀", "😿", "😾"]
   return (
     <React.Fragment style={{ display: "block" }}>
       <Card
@@ -65,12 +65,18 @@ function Middle(props) {
           <span>
             <input
               onChange={ev => setNewMes(ev.target.value)}
+              onKeyUp={ev => {
+                if (ev.key === "Enter") {
+                  props.sendMes(newMes);
+                  setNewMes("");
+                }
+              }}
               value={newMes}
               style={{ "box-shadow": "none", "font-size": "12px" }}
             />
             <Button
               variant="primary"
-              className="ml-2"
+              className="ml-2 mr-2"
               onClick={() => {
                 props.sendMes(newMes);
                 setNewMes("");
@@ -79,12 +85,12 @@ function Middle(props) {
               send
             </Button>
             <Accordion defaultActiveKey="0" style={{ display: "inline" }}>
-              <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                🙂 
+              <Accordion.Toggle as={Button} variant="light" eventKey="1">
+                🙂
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
-                  {emoji.map(el => <a onClick={ev => setNewMes(newMes + ev.target.innerText)}>{el}</a>)}
+                  {emoji.map(el => <Button variant="light" size="sm" onClick={ev => setNewMes(newMes + ev.target.innerText)}>{el}</Button>)}
                 </Card.Body>
               </Accordion.Collapse>
             </Accordion>

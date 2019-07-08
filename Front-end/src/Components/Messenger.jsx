@@ -17,7 +17,7 @@ function checkText(data) {
   }
 }
 
-var ID = function() {
+var ID = function () {
   return (
     "_" +
     Math.random()
@@ -164,8 +164,8 @@ class Messenger extends React.Component {
       );
       idPrieten === undefined
         ? (idPrieten = copy[this.state.message].participanti.find(
-            el => el !== copy[this.state.message].messages[0].id_participant
-          ))
+          el => el !== copy[this.state.message].messages[0].id_participant
+        ))
         : (idPrieten = idPrieten.id_participant);
       this.state.webSocket.send(
         JSON.stringify({
@@ -220,7 +220,7 @@ class Messenger extends React.Component {
     return (
       <div style={{ border: "2px solid lightblue" }} className="mx-3 mt-3 mb-3">
         <h3 style={{ "text-align": "center" }}>Messenger</h3>
-        <button onClick={this.deactivateLogin}>Log-out</button>
+        <button onClick={() => { sessionStorage.removeItem("token"); this.deactivateLogin(); }}>Log-out</button>
         <button
           onClick={() => {
             // îi permitem sa acceseze fereastra cu conversatii doar daca exista conversatii anterioare

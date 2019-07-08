@@ -19,7 +19,15 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div id="login" style={{paddingTop:"70px"}}>
+      <div id="login" style={{paddingTop:"70px"}} onKeyDown={ev => {
+        if (ev.key === "Enter") {
+          this.props.register(
+            this.state.nume,
+            this.state.parola,
+            this.state.email
+          )
+        }
+      }}>
         <input placeholder="nume" onChange={this.updateName} />
         <br />
         <input

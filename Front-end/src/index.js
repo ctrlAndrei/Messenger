@@ -8,17 +8,16 @@ import "./styles.css";
 class App extends React.Component {
   constructor() {
     super();
-
     this.state = {
       logat: false,
-      // cont: [
-      //   {
-      //     email: "gigescu@yahoo.com",
-      //     parola: "1234"
-      //   }
-      // ],
       token: ""
     };
+  }
+
+  componentDidMount() {
+    if (sessionStorage.getItem("token")) {
+      this.setLogin(true, sessionStorage.getItem("token"));
+    }
   }
 
   activateLogin = (nume, parola) => {
@@ -27,9 +26,6 @@ class App extends React.Component {
       alert("completati toate campurile");
       return;
     }
-    // this.state.cont.forEach(el => {
-    //   if (el.nume === nume && el.parola === parola) verify = true;
-    // });
     fetch("http://localhost:3000/login", {
       method: 'POST',
       body: JSON.stringify({ username: nume, password: parola }),
@@ -40,23 +36,13 @@ class App extends React.Component {
         return res.json()
       }
     })
-      .then(data => (verify) ? this.setLogin(verify, data.token) : alert("informatiile pentru nume/parola nu sunt corecte"))
+      .then(data => {
+        (verify) ? this.setLogin(verify, data.token) : alert("informatiile pentru nume/parola nu sunt corecte");
+        // salvam sesiunea
+        if (verify) sessionStorage.setItem("token", data.token);
+      })
       .catch(err => console.log(err));
-
-    // if (verify === false)
-    //   alert("informatiile pentru email/parola nu sunt corecte");
-    // this.setLogin(verify);
   };
-
-  // coruptInput = (mail, pass, repeat) => {
-  //   if (mail === "" || pass === "" || repeat === "") {
-  //     alert("completati toate campurile");
-  //   } else if (!/\S+@\S+\.\S+/.test(mail)) {
-  //     alert("format email invalid");
-  //   } else if (pass !== repeat) {
-  //     alert("parola nu corespunde");
-  //   }
-  // };
 
   register = (nume, pass, mail) => {
     let campGol = nume === "" || pass === "" || mail === "";
