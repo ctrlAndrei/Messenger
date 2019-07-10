@@ -5,6 +5,9 @@ import Middle from "./MessengerCards/Middle.jsx";
 import Right from "./MessengerCards/Right.jsx";
 import NewMessage from "./NewMessage";
 import AddFriend from "./AddFriend";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton"
 
 
 function checkText(data) {
@@ -26,9 +29,10 @@ var ID = function () {
   );
 };
 
-const styleMouseClick = {
-  backgroundColor: "lightgray"
-};
+const profilePics = ["https://images.unsplash.com/photo-1522778147829-047360bdc7f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=658&q=80",
+  "https://images.unsplash.com/photo-1560012454-137d194fa194?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60",
+  "https://images.unsplash.com/photo-1471898554234-bcbfedd35134?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60",
+  "https://images.unsplash.com/photo-1562447279-69402cb4587d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"]
 
 class Messenger extends React.Component {
   constructor() {
@@ -42,7 +46,7 @@ class Messenger extends React.Component {
   }
 
   componentDidMount() {
-    let socketCopy = new WebSocket("ws://localhost:8080");
+    let socketCopy = new WebSocket(`ws://${window.location.hostname}:8080`);
     socketCopy.onopen = ev => {
       socketCopy.send(
         JSON.stringify({
@@ -76,7 +80,7 @@ class Messenger extends React.Component {
   }
 
   getConversations = () => {
-    fetch("http://localhost:3000/get_conversations_list", {
+    fetch(`http://${window.location.hostname}:3000/get_conversations_list`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +109,7 @@ class Messenger extends React.Component {
                 return;
               }
               this.state.people.forEach((el, i) => {
-                fetch("http://localhost:3000/get_conversation", {
+                fetch(`http://${window.location.hostname}:3000/get_conversation`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -181,6 +185,14 @@ class Messenger extends React.Component {
     this.setState({ mode: selected });
   };
 
+  setAvatar = event => {
+    fetch(`http://${window.location.hostname}:3000/update_picture`, {
+      method: "POST",
+      body: JSON.stringify({ link_poza: event.target.dataset.url }),
+      headers: { 'Content-Type': 'application/json', 'token': this.props.token }
+    }).then(response => alert("avatar changed"))
+      .catch(err => console.log(err))
+  }
   // componentWillUnmount() {
   //   this.state.webSocket.close();
   // }
@@ -220,29 +232,40 @@ class Messenger extends React.Component {
     return (
       <div style={{ border: "2px solid lightblue" }} className="mx-3 mt-3 mb-3">
         <h3 style={{ "text-align": "center" }}>Messenger</h3>
-        <button onClick={() => { sessionStorage.removeItem("token"); this.deactivateLogin(); }}>Log-out</button>
-        <button
-          onClick={() => {
-            // îi permitem sa acceseze fereastra cu conversatii doar daca exista conversatii anterioare
-            if (this.state.people.length !== 0) this.setMode("messenger");
-          }}
-        >
-          messenger
+        <ButtonToolbar>
+          <button onClick={() => { sessionStorage.removeItem("token"); this.deactivateLogin(); }}>Log-out</button>
+          <button
+            onClick={() => {
+              // îi permitem sa acceseze fereastra cu conversatii doar daca exista conversatii anterioare
+              if (this.state.people.length !== 0) this.setMode("messenger");
+            }}
+          >
+            messenger
         </button>{" "}
-        <button
-          onClick={() => {
-            this.setMode("newMessage");
-          }}
-        >
-          new message
+          <button
+            onClick={() => {
+              this.setMode("newMessage");
+            }}
+          >
+            new message
         </button>
-        <button
-          onClick={() => {
-            this.setMode("AddFriend");
-          }}
-        >
-          add friends
+          <button
+            onClick={() => {
+              this.setMode("AddFriend");
+            }}
+          >
+            add friends
         </button>
+          <span style={{ "padding-left": "875px" }}><i>change profile picture</i></span>
+          <DropdownButton>
+            {profilePics.map(pic => <Dropdown.Item
+              data-url={pic}
+              onClick={this.setAvatar}
+            >
+              <img height="80px" width="80px" style={{ borderRadius: "20px" }} src={pic} data-url={pic}></img>
+            </Dropdown.Item>)}
+          </DropdownButton>
+        </ButtonToolbar>
         {component}
       </div>
     );

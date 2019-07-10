@@ -79,7 +79,7 @@ const register = (req, res) => {
 			email: req.body.email,
 			friends: [],
 			descriere: " ",
-			link_poza: " ",
+			link_poza: "https://images.unsplash.com/photo-1522778147829-047360bdc7f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=658&q=80",
 			conversatii: []
 		})
 
@@ -396,6 +396,26 @@ const send_seen_event = (req, res) => {
 	})
 }
 
+const update_picture = (req,res) => {
+	if (!req.headers['token']) {
+		return res.send(401);
+	}
+	if (!req.body.link_poza) {
+		return res.status(400).json({ message: "lipseste url-ul pozei" });
+	}
+	JWT.verify(req.headers['token'], CONFIG.JWT_SECRET_KEY, (err, payload) => {
+		if (err) {
+			res.send(403);
+		}
+		User.findOne({ username: payload.username },(err,doc)=>{
+			doc.link_poza = req.body.link_poza;
+			doc.markModified("link_poza");
+			doc.save();
+			res.send(200);
+		})
+	})
+}
+
 module.exports = {
 	register,
 	login,
@@ -407,5 +427,6 @@ module.exports = {
 	send_message,
 	get_conversation,
 	get_conversations_list,
-	send_seen_event
+	send_seen_event,
+	update_picture
 }

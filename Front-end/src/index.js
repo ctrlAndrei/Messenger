@@ -26,7 +26,7 @@ class App extends React.Component {
       alert("completati toate campurile");
       return;
     }
-    fetch("http://localhost:3000/login", {
+    fetch(`http://${window.location.hostname}:3000/login`, {
       method: 'POST',
       body: JSON.stringify({ username: nume, password: parola }),
       headers: { 'Content-Type': 'application/json' },
@@ -50,7 +50,7 @@ class App extends React.Component {
       alert("Completati toate campurile si introduceti un email valid");
       return;
     }
-    fetch("http://localhost:3000/register", {
+    fetch(`http://${window.location.hostname}:3000/register`, {
       method: 'POST',
       body: JSON.stringify({ username: nume, password: pass, email: mail }),
       headers: { 'Content-Type': 'application/json' },

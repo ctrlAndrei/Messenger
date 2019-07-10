@@ -20,5 +20,6 @@ router.post("/send_message", CONTROLLER.send_message);
 router.post("/get_conversation", CONTROLLER.get_conversation);
 router.post("/get_conversations_list",CONTROLLER.get_conversations_list);
 router.post("/send_seen_event",CONTROLLER.send_seen_event);
+router.post("/update_picture",CONTROLLER.update_picture);
 
 module.exports = router;

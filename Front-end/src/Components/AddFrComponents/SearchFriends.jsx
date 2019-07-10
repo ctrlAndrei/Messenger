@@ -6,7 +6,7 @@ function SearchFriends(props) {
 
   useEffect(() => {
     if (pattern.length > 2) {
-      fetch("http://localhost:3000/search_friends", {
+      fetch(`http://${window.location.hostname}:3000/search_friends`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,6 +34,7 @@ function SearchFriends(props) {
           <li className="mt-2">
             <img
               style={{ borderRadius: "50%" }}
+              height="80px"
               width="80px"
               src={el.link_poza}
             />
@@ -41,7 +42,7 @@ function SearchFriends(props) {
             <span>
               <button
                 onClick={ev => {
-                  fetch("http://localhost:3000/send_friend_request", {
+                  fetch(`http://${window.location.hostname}:3000/send_friend_request`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",

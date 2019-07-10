@@ -18,6 +18,7 @@ function Left(props) {
                 <Col id={el.id}>
                   <img
                     style={rounded}
+                    height="80px"
                     width="80px"
                     src={el.link_poza}
                     id={el.id}

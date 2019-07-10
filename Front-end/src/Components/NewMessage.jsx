@@ -7,7 +7,7 @@ function NewMessage(props) {
 
   useEffect(() => {
     if (pattern.length > 2) {
-      fetch("http://localhost:3000/search_friends", {
+      fetch(`http://${window.location.hostname}:3000/search_friends`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +36,7 @@ function NewMessage(props) {
             <div>
               <img
                 style={{ borderRadius: "50%" }}
+                height="80px"
                 width="80px"
                 src={el.link_poza}
               />

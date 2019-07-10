@@ -15,6 +15,7 @@ function Right(props) {
       Nr_telefon: {props.person.nr_telefon} */}
       <img
         src={props.person.link_poza}
+        height="400px"
         width="300px"
         className="ml-2 mt-3"
         style={{ "border-radius": "50px" }}

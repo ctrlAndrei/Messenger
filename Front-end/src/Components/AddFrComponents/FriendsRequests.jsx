@@ -5,7 +5,7 @@ class FriendsRequests extends React.Component {
     requests: []
   };
   componentDidMount() {
-    fetch("http://localhost:3000/get_friends_requests", {
+    fetch(`http://${window.location.hostname}:3000/get_friends_requests`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,11 +23,11 @@ class FriendsRequests extends React.Component {
       <ul>
         {this.state.requests.map(el => (
           <li>
-            <img style={{ borderRadius: "50%" }} width="80px" src={el.poza} />
+            <img style={{ borderRadius: "50%" }} width="80px" height="80px" src={el.poza} />
             <span>{el.username}</span>
             <button
               onClick={ev => {
-                fetch("http://localhost:3000/accept_friend_request", {
+                fetch(`http://${window.location.hostname}:3000/accept_friend_request`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
